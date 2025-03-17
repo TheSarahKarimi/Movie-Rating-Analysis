@@ -60,8 +60,13 @@ print(f'\n3.This dataset has {np.shape(Genre)[0]} genres including:\n{Genre}')
 print('_'*100,'\n')
 
 # Dataset filtering
-Above7Index=np.where(Rating>=7) # Fetch the index of movies with rating above 7
-Rating = np.where(Rating == '', np.nan, Rating).astype(float)
-Above7=DataArray[Above7Index[0]+1, 0]
-print(f'Movies with ratings 7 and above includes:\n{Above7}')
+SelectedIMDB=float(input('Filter movies by IMDB rating: '))
+while True:
+    if 0<SelectedIMDB<10:
+        IMDBIndex=np.where(Rating>=float(SelectedIMDB)) # Fetch the index of movies with rating above 7
+        IMDB=DataArray[IMDBIndex[0]+1, 0]
+        print(f'Movies with ratings 7 and above includes:\n{IMDB}')
+        break
+    else:
+        SelectedIMDB=float(input('IMDB is in range 1-10! Enter again: '))
 print('_'*100,'\n')
