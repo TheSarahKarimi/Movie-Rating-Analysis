@@ -1,5 +1,6 @@
 import numpy as np
 import csv
+import pandas as pd
 
 # Load the dataset
 with open('movies.csv','r',encoding='utf-8') as File: # Used Python (not NumPy) due to quoted string support
@@ -80,4 +81,18 @@ while True:
         break
     else:
         SelectedGenre=input('Genre not found! Enter again: ')
+print('_'*100,'\n')
+
+# Using Pandas
+DataFrame=pd.read_csv('movies.csv') # Read the dataset
+LimitedDataFrame=pd.concat([DataFrame.name,DataFrame.genre,DataFrame.rating],axis=1)
+print(f'A prefered preview of the dataset:\n{LimitedDataFrame}')
+print('_'*100,'\n')
+print(f'Some column name changed:\n{LimitedDataFrame.rename(columns={'name':'movie_title','rating':'IMDB'})}')
+print('_'*100,'\n')
+Empty=LimitedDataFrame.isnull().sum()
+print(f'The dataset empty cells count:\n {Empty}')
+print('_'*100,'\n')
+LimitedDataFrame.dropna(axis=0,inplace=True)
+print(f'All none-value datas removed:\n{LimitedDataFrame}')
 print('_'*100,'\n')
