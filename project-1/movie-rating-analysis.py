@@ -20,7 +20,7 @@ print('_'*100,'\n')
 
 # Calculate basic statistics
 RatingColumn=DataArray[1:,6].astype('O') # Extract the Rating column (Converted to object to allow mixed types)
-Rating=np.where(RatingColumn=='',np.nan,RatingColumn).astype(float) # Replace empty strings with 'nan'
+Rating=np.where(RatingColumn=='',np.nan,RatingColumn).astype(float) # Replace empty strings with nan
 print('*'*10,'Rating\'s overview:','*'*10)
 print(f'\nMean of rating: {np.nanmean(Rating):.1f}')
 print(f'Median of rating: {np.nanmedian(Rating):.2f}')
@@ -29,7 +29,7 @@ print('_'*100,'\n')
 
 # Some numerical computation with NumPy
 YearColumn=DataArray[1:,3].astype('O') # Extract the year column
-Year=np.where(YearColumn=='',np.nan,YearColumn) # Replace empty strings with 'nan'
+Year=np.where(YearColumn=='',np.nan,YearColumn) # Replace empty strings with nan
 print('*'*10,'Some facts about this dataset:','*'*10)
 print(f'\n1.The oldest movie belong to {np.nanmin(Year)} and {np.max(Year)} is the latest release!')
 
@@ -57,4 +57,11 @@ print(f'\n2.On {np.nanmin(Year)}, {np.nansum(FirstBudget)} $ was spent on movies
 Genre=np.unique(DataArray[1:,2])
 print(f'\n3.This dataset has {np.shape(Genre)[0]} genres including:\n{Genre}')
 
+print('_'*100,'\n')
+
+# Dataset filtering
+Above7Index=np.where(Rating>=7) # Fetch the index of movies with rating above 7
+Rating = np.where(Rating == '', np.nan, Rating).astype(float)
+Above7=DataArray[Above7Index[0]+1, 0]
+print(f'Movies with ratings 7 and above includes:\n{Above7}')
 print('_'*100,'\n')
