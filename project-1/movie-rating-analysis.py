@@ -85,17 +85,27 @@ print('_'*100,'\n')
 
 # Using Pandas
 DataFrame=pd.read_csv('movies.csv') # Read the dataset
-LimitedDataFrame=pd.concat([DataFrame.name,DataFrame.genre,DataFrame.rating],axis=1) # Create a dataframe with prefered columns
+LimitedDataFrame=pd.concat([DataFrame.name,DataFrame.genre,DataFrame.year,DataFrame.rating],axis=1) # Create a dataframe with prefered columns
 print(f'A prefered preview of the dataset:\n{LimitedDataFrame}')
 print('_'*100,'\n')
-print(f'Some column name changed:\n{LimitedDataFrame.rename(columns={'name':'movie_title','rating':'IMDB'})}') # Rename some column names
+
+print(f'Some column name changed:\n{LimitedDataFrame.rename(columns={'name':'movie_title','rating':'IMDB'},inplace=True)}') # Rename some column names
 print('_'*100,'\n')
+
 Empty=LimitedDataFrame.isnull().sum() # Disply missing data count grouped by header
 print(f'The dataset empty cells count:\n {Empty}') 
 print('_'*100,'\n')
+
 LimitedDataFrame.dropna(axis=0,inplace=True) # Handle missing data
 print(f'All none-value datas removed:\n{LimitedDataFrame}') # Dataframe without missing data
 print('_'*100,'\n')
-LimitedDataFrame.sort_values(by='rating',ascending=False,inplace=True) # Sort dataframe
+
+LimitedDataFrame.sort_values(by='IMDB',ascending=False,inplace=True) # Sort dataframe
 print(f'Sorted by IMDB rating:\n{LimitedDataFrame}') 
+print('_'*100,'\n')
+
+# Group by year and calculate the average rating
+GroupByYear = LimitedDataFrame.groupby('year')
+AvgRatingByYear = GroupByYear['IMDB'].mean()
+print(f'Average IMDB rating for each year:\n{AvgRatingByYear}')
 print('_'*100,'\n')
