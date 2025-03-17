@@ -70,3 +70,14 @@ while True:
     else:
         SelectedIMDB=float(input('IMDB is in range 1-10! Enter again: '))
 print('_'*100,'\n')
+GenreColumn=DataArray[1:,2]
+SelectedGenre=input('Filter movies by genre: ')
+while True:
+    if SelectedGenre in Genre:
+        DramaIndex=np.where(GenreColumn==SelectedGenre)
+        Dramas=DataArray[DramaIndex[0]+1,0]
+        print(f'List of {SelectedGenre} movies:\n{Dramas}')
+        break
+    else:
+        SelectedGenre=input('Genre not found! Enter again: ')
+print('_'*100,'\n')
